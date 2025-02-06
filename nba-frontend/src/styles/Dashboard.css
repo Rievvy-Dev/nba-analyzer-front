@@ -1,0 +1,44 @@
+.dashboard {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .season-selector {
+    margin-bottom: 20px;
+  }
+  
+  .season-selector button {
+    margin: 5px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+  }
+  
+  .season-selector .active {
+    background-color: #003366;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .season-selector button:hover {
+    background-color: #0055A5;
+    color: white;
+  }
+  
+  .charts-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .chart-iframe {
+    width: 90%;
+    height: 400px;
+    border: none;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  }
+  
