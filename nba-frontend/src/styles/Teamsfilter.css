@@ -1,0 +1,108 @@
+.teams-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .teams-title {
+    font-size: 24px;
+    color: #003366;
+    margin-bottom: 20px;
+  }
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+  }  
+
+  .filter-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .custom-table-container {
+    width: 100%;
+    max-width: 80%;
+    justify-content: center;
+  }
+  
+  .filter-controls select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #003366;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    color: #003366;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .filter-controls select:focus {
+    border-color: #0055A5;
+    background-color: #ffffff;
+  }
+  
+  .filter-controls select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .filter-controls button {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #003366;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .back-button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #0055A5;
+  }
+
+  .title-divider {
+    width: 90%;
+    border: 1px solid #ccc;
+    margin: 5px 0 20px;
+  }
+  
+  .filter-controls button:hover {
+    background-color: #0055A5;
+  }
+  
+  .filter-controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  .stats-tables {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 100%;
+    max-width: 100%;
+}
+.stats-tables .custom-table-container {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+}

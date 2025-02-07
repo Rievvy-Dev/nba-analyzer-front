@@ -5,6 +5,7 @@ import Header from "./components/header.jsx";
 import Sidemenu from "./components/Sidemenu.jsx";
 import Home from "./pages/Home.jsx";
 import Teams from "./pages/Teams.jsx";
+import Teamfilter from "./pages/Teamfilter.jsx";
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,6 +19,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/teams" element={<Teams />} />
+          <Route path="/teamsfilter" element={<Teamfilter />} />
         </Routes>
       </main>
     </div>

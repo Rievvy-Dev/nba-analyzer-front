@@ -1,65 +1,77 @@
-/* Estilos para a página Teams */
-
 .teams-page {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.teams-title {
+  font-size: 24px;
+  color: #003366;
+  align-items: center;
+}
+
+.title-divider {
+  width: 90%;
+  border: 1px solid #ccc;
+  margin: 5px 0 20px;
+}
+
+.tables-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 45%;
+  min-width: 350px;
+}
+
+/* 🔹 Estilização do botão */
+.info-button {
+  background-color: #003366;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.info-button:hover {
+  background-color: #0055A5;
+}
+
+/* 🔹 Responsividade */
+@media (max-width: 768px) {
+  .header-container {
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    padding: 20px;
+    gap: 10px;
   }
-  
-  .teams-title {
-    font-size: 24px;
-    color: #003366;
-    margin-bottom: 20px;
-  }
-  
+
   .tables-wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    width: 100%;
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .custom-table-container {
-    width: 100%;
-    max-width: 500px;
+
+  .table-container {
+    width: 90%;
   }
-  
-  .custom-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .custom-table th, .custom-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-  }
-  
-  .custom-table th {
-    background-color: #003366;
-    color: white;
-  }
-  
-  .custom-table td {
-    background-color: #f9f9f9;
-  }
-  
-  .custom-table tr:hover {
-    background-color: #e3e3e3;
-  }
-  
-  @media (max-width: 768px) {
-    .tables-wrapper {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-  
+}

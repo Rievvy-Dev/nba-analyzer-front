@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getStandings } from "../../api";
+import { useNavigate } from "react-router-dom"; 
 import Table from "../components/Table";
 import "../styles/Teams.css";
 
@@ -8,6 +9,7 @@ export default function Teams() {
     "Eastern Conference": [],
     "Western Conference": [],
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchStandings() {
@@ -20,20 +22,36 @@ export default function Teams() {
 
   return (
     <div className="teams-page">
-      <h2 className="teams-title">Classificação da NBA 2024-25</h2>
-      
+      <div className="header-container">
+        <h2 className="teams-title">Classificação da NBA 2023-24</h2>
+        <button className="info-button" onClick={() => navigate("/teamsfilter")}>
+          Mais Informações
+        </button>
+      </div>
+      <hr className="title-divider" />
+
       <div className="tables-wrapper">
-        <Table 
-          title="Eastern Conference" 
-          columns={["rank", "team", "wins", "losses"]} 
-          data={standings["Eastern Conference"]} 
-        />
-        
-        <Table 
-          title="Western Conference" 
-          columns={["rank", "team", "wins", "losses"]} 
-          data={standings["Western Conference"]} 
-        />
+        <div className="table-container">
+          <div className="table-header">
+            <h3>Eastern Conference</h3>
+          </div>
+          <Table 
+            title="" 
+            columns={["rank", "team", "wins", "losses"]} 
+            data={standings["Eastern Conference"]} 
+          />
+        </div>
+
+        <div className="table-container">
+          <div className="table-header">
+            <h3>Western Conference</h3>
+          </div>
+          <Table 
+            title="" 
+            columns={["rank", "team", "wins", "losses"]} 
+            data={standings["Western Conference"]} 
+          />
+        </div>
       </div>
     </div>
   );

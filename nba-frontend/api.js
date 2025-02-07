@@ -8,7 +8,7 @@ export const getStandings = async (season) => {
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar standings:", error);
-    return null;
+    return { "Eastern Conference": [], "Western Conference": [] };
   }
 };
 
@@ -18,7 +18,7 @@ export const getTeamVictories = async (teamId, season) => {
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar vitórias do time:", error);
-    return null;
+    return [];
   }
 };
 
@@ -28,7 +28,7 @@ export const getTeamStats = async (teamId, season) => {
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar estatísticas do time:", error);
-    return null;
+    return [];
   }
 };
 
@@ -38,6 +38,16 @@ export const getDefensiveStats = async (teamId, season) => {
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar estatísticas defensivas do time:", error);
-    return null;
+    return [];
+  }
+};
+
+export const getTeamGames = async (teamId, season) => {
+  try {
+    const response = await axios.post(`${API_URL}/team-games/${teamId}`, { season });
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao buscar jogos do time:", error);
+    return [];
   }
 };
