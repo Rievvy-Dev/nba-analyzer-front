@@ -12,7 +12,7 @@ export default function DashboardPlayer() {
   useEffect(() => {
     async function fetchPlayerGames() {
       try {
-        const response = await getPlayerGames(playerId, season);
+        const response = await getPlayerGames(playerId, season, playerInfo["team_id"] );
         setPlayerGames(response ?? []); 
       } catch (error) {
         console.error("Erro ao buscar jogos:", error);
@@ -32,7 +32,7 @@ export default function DashboardPlayer() {
 
     fetchPlayerGames();
     fetchPlayerInfo();
-  }, [playerId, season]);
+  }, [playerId, season, playerInfo]);
 
 
   const calculateStats = (games, key) => {

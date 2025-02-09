@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getPlayerStats, getPlayerGames, getPlayerGamesbyOpp, getStandings } from "../../api"; 
 import {  AiOutlineBarChart, AiOutlineFileText } from "react-icons/ai"; 
 import Table from "../components/Table";
+import ProbabilityCalculator from "../components/ProbabilityCalculator";
+import LinearRegressionCalculator from "../components/LinearRegressionCalculator"; 
 import "../styles/Player.css";
 
 export default function Player() {
@@ -16,6 +18,9 @@ export default function Player() {
   const [selectedOpponent, setSelectedOpponent] = useState(""); 
   const [season, setSeason] = useState("2024-25"); 
   const [generalStats, setGeneralStats] = useState(null); 
+  const [probabilityType, setProbabilityType] = useState("gumbel");
+  
+  
 
   useEffect(() => {
     async function fetchStats() {
@@ -32,7 +37,8 @@ export default function Player() {
   useEffect(() => {
     async function fetchGames() {
       try {
-        const games = await getPlayerGames(playerId, season);
+        const games = await getPlayerGames(playerId, season, playerInfo["team_id"] );
+        console.log(playerInfo)
         setPlayerGames(games);
         setFilteredGames(games); 
       } catch (error) {
@@ -40,7 +46,7 @@ export default function Player() {
       }
     }
     fetchGames();
-  }, [playerId, season]);
+  }, [playerId, season, playerInfo]);
 
   useEffect(() => {
     async function fetchTeams() {
@@ -95,6 +101,7 @@ export default function Player() {
       Assistências: game.assists ?? "N/A",
       Rebotes: game.rebounds ?? "N/A",
       Jogo: game.home_away ?? "N/A",
+      Placar: game.score ?? "N/A",
       Resultado: game.result ?? "N/A",
     }));
   };
@@ -125,6 +132,7 @@ export default function Player() {
       </div>
       <hr className="title-divider" />
 
+      {/* 🔹 Botões de Alternância */}
       <div className="toggle-container">
         <button 
           className={`toggle-button ${viewMode === "info" ? "active" : ""}`}
@@ -138,29 +146,36 @@ export default function Player() {
         >
           Jogos
         </button>
+        <button 
+          className={`toggle-button ${viewMode === "probability" ? "active" : ""}`}
+          onClick={() => setViewMode("probability")}
+        >
+          Probabilidade
+        </button>
       </div>
 
-      {viewMode === "info" ? (
+      {/* 🔹 Renderização Condicional */}
+      {viewMode === "info" && (
         <div className="player-info">
-        <div className="info-container">
-          <div className="info-text">
-            <p><strong>Posição:</strong> {playerInfo.position}</p>
-            <p><strong>Altura:</strong> {playerInfo.height}</p>
-            <p><strong>Peso:</strong> {playerInfo.weight}</p>
-            <p><strong>Idade:</strong> {playerInfo.age} anos</p>
-            <p><strong>Experiência:</strong> {playerInfo.experience} anos</p>
-            <p><strong>Faculdade:</strong> {playerInfo.college ?? "Não informado"}</p>
-            <p><strong>Salário:</strong> {playerInfo.salary}</p>
-          </div>
-          <div className="icon-group">
-          <button
-            className="grafics-icon"
-            onClick={() => navigate(`/dashboard/${playerId}/${teamAbbreviation}`)}
-            title="Ver Gráficos"
-          >
-            <AiOutlineBarChart size={24} color="#003366" />
-          </button>
-          <button
+          <div className="info-container">
+            <div className="info-text">
+              <p><strong>Posição:</strong> {playerInfo.position}</p>
+              <p><strong>Altura:</strong> {playerInfo.height}</p>
+              <p><strong>Peso:</strong> {playerInfo.weight}</p>
+              <p><strong>Idade:</strong> {playerInfo.age} anos</p>
+              <p><strong>Experiência:</strong> {playerInfo.experience} anos</p>
+              <p><strong>Faculdade:</strong> {playerInfo.college ?? "Não informado"}</p>
+              <p><strong>Salário:</strong> {playerInfo.salary}</p>
+            </div>
+            <div className="icon-group">
+              <button
+                className="grafics-icon"
+                onClick={() => navigate(`/dashboard/${playerId}/${teamAbbreviation}`)}
+                title="Ver Gráficos"
+              >
+                <AiOutlineBarChart size={24} color="#003366" />
+              </button>
+              <button
                 className="grafics-icon"
                 onClick={() => navigate(`/playerstats/${playerId}/${teamAbbreviation}`)}
                 title="Ver Status do Jogador"
@@ -168,10 +183,11 @@ export default function Player() {
                 <AiOutlineFileText size={24} color="#003366" />
               </button>
             </div>
+          </div>
         </div>
-      </div>
-      
-      ) : (
+      )}
+
+      {viewMode === "games" && (
         <>
           <div className="filter-controls">
             <label>Filtrar por oponente:</label>
@@ -189,7 +205,7 @@ export default function Player() {
           </div>
 
           <Table 
-            columns={["Data", "Oponente", "Pontos", "Assistências", "Rebotes", "Jogo", "Resultado"]}
+            columns={["Data", "Oponente", "Pontos", "Assistências", "Rebotes", "Jogo","Placar", "Resultado"]}
             data={renderGamesTable(filteredGames.length > 0 ? filteredGames : playerGames)}
           />
 
@@ -210,6 +226,41 @@ export default function Player() {
             />
           )}
         </>
+      )}
+
+{viewMode === "probability" && (
+        <div className="probability-section">
+          <div>
+          <label>Escolha o modelo de probabilidade:</label>
+          <select value={probabilityType} onChange={(e) => setProbabilityType(e.target.value)}>
+            <option value="gumbel">Gumbel</option>
+            <option value="linear">Regressão Linear</option>
+            <option value="logistic">Regressão Logística</option>
+            <option value="gamlss">GAMLSS</option>
+          </select>
+          </div>
+          {probabilityType === "gumbel" && (
+            <ProbabilityCalculator playerId={playerId} teamAbbreviation={teamAbbreviation} />
+          )}
+
+          {probabilityType === "linear" && (
+            <LinearRegressionCalculator playerId={playerId} teamAbbreviation={teamAbbreviation} />
+          )}
+
+          {probabilityType === "logistic" && (
+            <div className="probability-placeholder">
+              <h3>Regressão Logística</h3>
+              <p>Implementação futura...</p>
+            </div>
+          )}
+
+          {probabilityType === "gamlss" && (
+            <div className="probability-placeholder">
+              <h3>GAMLSS</h3>
+              <p>Implementação futura...</p>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
