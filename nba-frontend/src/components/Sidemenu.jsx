@@ -13,9 +13,8 @@ export default function Sidemenu({ isOpen, onClose }) {
       <nav className="sidemenu__nav">
         <ul>
           <li><a href="/"><FaHome /> Home</a></li>
-          <li><a href="#"><FaBasketballBall /> New York Knicks</a></li>
+          <li><a href="/players/1610612752"><FaBasketballBall /> New York Knicks</a></li>
           <li><a href="/teams"><FaUsers /> Teams</a></li>
-          <li><a href="#"><FaUser /> Players</a></li>
         </ul>
       </nav>
     </div>

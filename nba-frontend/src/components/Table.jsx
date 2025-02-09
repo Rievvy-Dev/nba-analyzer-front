@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import React from "react";
 import "../styles/Table.css";
 
 export default function Table({ title, columns, data }) {
@@ -17,7 +18,9 @@ export default function Table({ title, columns, data }) {
           {data.map((row, rowIndex) => (
             <tr key={rowIndex}>
               {columns.map((col, colIndex) => (
-                <td key={colIndex}>{row[col]}</td>
+                <td key={colIndex}>
+                  {React.isValidElement(row[col]) ? row[col] : String(row[col])}
+                </td>
               ))}
             </tr>
           ))}

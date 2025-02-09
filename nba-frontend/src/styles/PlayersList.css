@@ -1,0 +1,75 @@
+
+.players-list-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+}
+
+.players-title {
+    font-size: 24px;
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+}
+.back-button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #0055A5;
+}
+
+.title-divider {
+    width: 90%;
+    border: 1px solid #ccc;
+    margin: 5px 0 20px;
+}
+
+.custom-table-container {
+    width: 100%;
+    max-width: 80%;
+    justify-content: center;
+}
+
+
+.stats-tables .custom-table-container {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.custom-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.no-players {
+    font-size: 18px;
+    color: gray;
+    margin-top: 20px;
+}
+
+.clickable-player {
+    color: #003366;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.clickable-player:hover {
+    color: #0055A5;
+}

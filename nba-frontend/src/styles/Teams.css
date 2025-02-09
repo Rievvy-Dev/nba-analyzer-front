@@ -43,7 +43,6 @@
   min-width: 350px;
 }
 
-/* 🔹 Estilização do botão */
 .info-button {
   background-color: #003366;
   color: white;
@@ -58,7 +57,15 @@
   background-color: #0055A5;
 }
 
-/* 🔹 Responsividade */
+.clickable-team {
+  color: #003366;
+  cursor: pointer;
+}
+
+.clickable-team:hover {
+  color: #0055A5;
+}
+
 @media (max-width: 768px) {
   .header-container {
     flex-direction: column;

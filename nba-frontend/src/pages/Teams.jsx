@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getStandings } from "../../api";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import Table from "../components/Table";
 import "../styles/Teams.css";
 
@@ -20,10 +20,26 @@ export default function Teams() {
     fetchStandings();
   }, []);
 
+  const renderTableData = (teams) => {
+    return teams.map((team) => ({
+      rank: team.rank,
+      team: (
+        <span 
+          className="clickable-team" 
+          onClick={() => navigate(`/players/${team.teamId}`)}
+        >
+          {team.team}
+        </span>
+      ), 
+      wins: team.wins,
+      losses: team.losses,
+    }));
+  };
+  
   return (
     <div className="teams-page">
       <div className="header-container">
-        <h2 className="teams-title">Classificação da NBA 2023-24</h2>
+        <h2 className="teams-title">Classificação da Atual da NBA </h2>
         <button className="info-button" onClick={() => navigate("/teamsfilter")}>
           Mais Informações
         </button>
@@ -38,7 +54,7 @@ export default function Teams() {
           <Table 
             title="" 
             columns={["rank", "team", "wins", "losses"]} 
-            data={standings["Eastern Conference"]} 
+            data={renderTableData(standings["Eastern Conference"])} 
           />
         </div>
 
@@ -49,7 +65,7 @@ export default function Teams() {
           <Table 
             title="" 
             columns={["rank", "team", "wins", "losses"]} 
-            data={standings["Western Conference"]} 
+            data={renderTableData(standings["Western Conference"])} 
           />
         </div>
       </div>

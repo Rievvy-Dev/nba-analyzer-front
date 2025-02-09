@@ -9,13 +9,13 @@ export default function Teams() {
   const [teams, setTeams] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
-  const [season] = useState("2023-24");
+  const [season, setSeason] = useState("2024-25"); 
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate(-1); // Volta para a página anterior
+    navigate(-1);
   };
-  
+
   const [data, setData] = useState({
     stats: [],
     defensiveStats: [],
@@ -24,6 +24,11 @@ export default function Teams() {
 
   useEffect(() => {
     async function fetchTeams() {
+      setTeams([]);
+      setSelectedTeam("");
+      setSelectedFilter("");
+      setData({ stats: [], defensiveStats: [], generalData: [] });
+
       const standings = await getStandings(season);
       if (standings) {
         const allTeams = [
@@ -50,7 +55,7 @@ export default function Teams() {
       case "Estatísticas Gerais":
         response = await getTeamStats(selectedTeam, season);
         break;
-      case "Estatísticas Ofensivas":
+      case "Estatísticas Defensivas":
         response = await getDefensiveStats(selectedTeam, season);
         break;
       case "Jogos":
@@ -70,13 +75,6 @@ export default function Teams() {
         }));
       }
 
-      if (response.team_stats_data_div) {
-        extractedData.defensiveStats = Object.entries(response.team_stats_data_div).map(([key, value]) => ({
-          Estatística: key.replace(/_/g, " "),
-          Valor: value,
-        }));
-      }
-
       if (response.defensive_stats_data) {
         extractedData.defensiveStats = Object.entries(response.defensive_stats_data).map(([key, value]) => ({
           Estatística: key.replace(/_/g, " "),
@@ -86,7 +84,7 @@ export default function Teams() {
 
       if (response.games_data && Array.isArray(response.games_data)) {
         extractedData.generalData = response.games_data.map(game => ({
-          "Data": game.date,
+          "Data":new Date(game.date).toLocaleDateString("pt-BR"),
           "Adversário": game.opponent,
           "Resultado": game.result,
           "Local": game.home_or_away === "home" ? "Casa" : "Fora",
@@ -113,17 +111,26 @@ export default function Teams() {
       <div className="header-container">
         <h2 className="teams-title">Filtrar Informações dos Times</h2>
         <button className="back-button" onClick={handleGoBack}>Voltar</button>
- 
       </div>
-       <hr className="title-divider" />
+
+      <hr className="title-divider" />
+
       <div className="filter-controls">
+        {/* Seletor de Temporada */}
+        <select onChange={(e) => setSeason(e.target.value)} value={season}>
+          <option value="2024-25">Temporada 2024-25</option>
+          <option value="2023-24">Temporada 2023-24</option>
+        </select>
+
+        {/* Seletor de Time */}
         <select 
           onChange={(e) => {
             setSelectedTeam(e.target.value);
-            setSelectedFilter(""); 
+            setSelectedFilter("");
             setData({ stats: [], defensiveStats: [], generalData: [] });
           }} 
           value={selectedTeam}
+          disabled={teams.length === 0}
         >
           <option value="">Selecione um time</option>
           {teams.map((team) => (
@@ -131,6 +138,7 @@ export default function Teams() {
           ))}
         </select>
 
+        {/* Seletor de Filtro */}
         <select onChange={(e) => setSelectedFilter(e.target.value)} value={selectedFilter} disabled={!selectedTeam}>
           <option value="">Selecione um filtro</option>
           <option value="Vitórias">Vitórias</option>
@@ -142,6 +150,7 @@ export default function Teams() {
         <button onClick={fetchData} disabled={!selectedFilter}>Buscar</button>
       </div>
 
+      {/* Exibição de Dados */}
       {selectedFilter === "Estatísticas Gerais" && (data.stats.length > 0 || data.defensiveStats.length > 0) ? (
         <div className="stats-tables">
           {data.stats.length > 0 && (
