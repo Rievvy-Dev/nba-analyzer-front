@@ -72,10 +72,11 @@ export const getPlayerStats = async (playerId, teamAbbreviation) => {
   }
 };
 
-export async function getPlayerGames(playerId, season) {
+export async function getPlayerGames(playerId, season, team_id) {
   try {
     const response = await axios.post(`${API_URL}/player-games/${playerId}`, {
-      season, 
+      season,
+      team_id
     });
     return response.data;
   } catch (error) {
@@ -115,6 +116,58 @@ export async function getPlayerCareerStats(playerId) {
     return response.data;
   } catch (error) {
     console.error("Erro ao buscar estatísticas da carreira do jogador:", error);
+    return null;
+  }
+}
+
+export async function getGumbelProbability(playerId, teamId, modelData) {
+  try {
+    const response = await axios.post(`${API_URL}/gumbel/probability/${playerId}`, {
+      team_id: teamId,
+      ...modelData
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao calcular a probabilidade Gumbel:", error);
+    return null;
+  }
+}
+
+export async function getLinearRegression(playerId, teamId, modelData) {
+  try {
+    const response = await axios.post(`${API_URL}/linear-regression/${playerId}`, {
+      team_id: teamId,
+      ...modelData
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao calcular regressão linear:", error);
+    return null;
+  }
+}
+
+export async function getLogisticRegression(playerId, teamId, modelData) {
+  try {
+    const response = await axios.post(`${API_URL}/logistic-regression/${playerId}`, {
+      team_id: teamId,
+      ...modelData
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao calcular regressão logística:", error);
+    return null;
+  }
+}
+
+export async function getGAMLSSPrediction(playerId, teamId, modelData) {
+  try {
+    const response = await axios.post(`${API_URL}/gamlss/prediction/${playerId}`, {
+      team_id: teamId,
+      ...modelData
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao calcular previsão GAMLSS:", error);
     return null;
   }
 }
