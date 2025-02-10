@@ -10,7 +10,6 @@ import "../styles/Probability.css";
 export default function LinearRegressionCalculator() {
   const { playerId, teamAbbreviation } = useParams();
   const [playerInfo, setPlayerInfo] = useState(null);
-  const [variavelIndep, setVariavelIndep] = useState("tempo_quadra");
   const [variavelDep, setVariavelDep] = useState("points");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -39,7 +38,7 @@ export default function LinearRegressionCalculator() {
     }
 
     try {
-      const requestData = { variavel_dependente: variavelDep, variavel_independente: variavelIndep };
+      const requestData = { variavel_dependente: variavelDep };
       const response = await getLinearRegression(playerId, playerInfo.team_id, requestData);
       console.log("📊 Resposta da API:", response);
       setResult(response);
@@ -92,13 +91,6 @@ export default function LinearRegressionCalculator() {
       <h2>Regressão Linear - {playerInfo?.name}</h2>
 
       <form onSubmit={handleSubmit} className="probability-form">
-        <label>Escolha a variável independente:</label>
-        <select value={variavelIndep} onChange={(e) => setVariavelIndep(e.target.value)}>
-          <option value="tempo_quadra">Tempo em Quadra</option>
-          <option value="arremessos_tentados">Arremessos Tentados</option>
-          <option value="turnovers">Turnovers</option>
-        </select>
-
         <label>Escolha a variável dependente:</label>
         <select value={variavelDep} onChange={(e) => setVariavelDep(e.target.value)}>
         <option value="points">Pontos</option>

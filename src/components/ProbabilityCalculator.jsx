@@ -10,7 +10,7 @@ import "../styles/Probability.css";
 export default function Probability() {
   const { playerId, teamAbbreviation } = useParams();
   const [playerInfo, setPlayerInfo] = useState(null);
-  const [variavel, setVariavel] = useState("pontos"); 
+  const [variavel, setVariavel] = useState("points"); 
   const [x, setX] = useState(""); 
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -82,9 +82,9 @@ export default function Probability() {
       <form onSubmit={handleSubmit} className="probability-form">
         <label>Escolha a variável:</label>
         <select value={variavel} onChange={(e) => setVariavel(e.target.value)}>
-          <option value="pontos">Pontos</option>
-          <option value="rebotes">Rebotes</option>
-          <option value="assistencias">Assistências</option>
+          <option value="points">Pontos</option>
+          <option value="rebounds">Rebotes</option>
+          <option value="assists">Assistências</option>
         </select>
 
         <label>Digite um valor X:</label>
