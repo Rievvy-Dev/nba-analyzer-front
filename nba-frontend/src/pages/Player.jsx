@@ -6,6 +6,7 @@ import Table from "../components/Table";
 import ProbabilityCalculator from "../components/ProbabilityCalculator";
 import LinearRegressionCalculator from "../components/LinearRegressionCalculator";
 import LogisticRegressionCalculator from "../components/LogisticRegression"; 
+import GAMLSSCalculator from "../components/GAMLSSCalculator";
 import "../styles/Player.css";
 
 export default function Player() {
@@ -253,10 +254,7 @@ export default function Player() {
           )}
 
           {probabilityType === "gamlss" && (
-            <div className="probability-placeholder">
-              <h3>GAMLSS</h3>
-              <p>Implementação futura...</p>
-            </div>
+            <GAMLSSCalculator playerId={playerId} teamAbbreviation={teamAbbreviation} />
           )}
         </div>
       )}
