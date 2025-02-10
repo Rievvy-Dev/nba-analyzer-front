@@ -1,6 +1,6 @@
 
 
-.probability-page h2 {
+h2 {
     font-size: 24px;
     color: #003366;
     margin-bottom: 20px;
@@ -17,11 +17,7 @@
     width: 100%;
     max-width: 100%;
     margin-bottom: 20px;
-}
-
-.probability-form label {
-    font-weight: bold;
-    color: #003366;
+    text-align: center; 
 }
 
 .probability-form select,
@@ -46,17 +42,8 @@
     background-color: #0055A5;
 }
 
-.probability-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-}
 
+/* Gráficos */
 .chart-group {
     display: flex;
     justify-content: center;
@@ -74,6 +61,7 @@
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Responsividade */
 @media (max-width: 768px) {
     .chart-group {
         flex-direction: column;

@@ -4,7 +4,8 @@ import { getPlayerStats, getPlayerGames, getPlayerGamesbyOpp, getStandings } fro
 import {  AiOutlineBarChart, AiOutlineFileText } from "react-icons/ai"; 
 import Table from "../components/Table";
 import ProbabilityCalculator from "../components/ProbabilityCalculator";
-import LinearRegressionCalculator from "../components/LinearRegressionCalculator"; 
+import LinearRegressionCalculator from "../components/LinearRegressionCalculator";
+import LogisticRegressionCalculator from "../components/LogisticRegression"; 
 import "../styles/Player.css";
 
 export default function Player() {
@@ -248,10 +249,7 @@ export default function Player() {
           )}
 
           {probabilityType === "logistic" && (
-            <div className="probability-placeholder">
-              <h3>Regressão Logística</h3>
-              <p>Implementação futura...</p>
-            </div>
+            <LogisticRegressionCalculator playerId={playerId} teamAbbreviation={teamAbbreviation} />
           )}
 
           {probabilityType === "gamlss" && (
